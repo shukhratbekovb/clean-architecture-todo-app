@@ -10,7 +10,7 @@ EMAIL_PATTERN = r"^[a-zA-Z0-9]([a-zA-Z0-9._+-]*[a-zA-Z0-9])?@[a-zA-Z0-9]([a-zA-Z
 class Email:
     """
     Value-Object Email нужен нам для электронных почт
-    
+
     Attributes:
         value (str): Значение электронной почты
     """
@@ -34,7 +34,11 @@ class Email:
         return hash(self.value)
 
     def __eq__(self, other):
-        return self.value == other.value
+        if isinstance(other, Email):
+            return self.value == other.value
+        if isinstance(other, str):
+            return self.value == other
+        raise
 
     def __str__(self):
         return self.value
